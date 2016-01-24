@@ -1,0 +1,10 @@
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/test/app/CdiEnabled.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/test/app/InternalsBinder.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/mock/service/IphoneService.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/test/endpoints/EndpointExampleTest.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/test/service/AndroidServiceTest.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/mock/service/AndroidService.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/test/app/TestApp.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/mock/dao/IphoneJpaController.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/mock/service/MockServiceFactory.java
+/home/korena/Development/Workspaces/service-base/src/test/java/com/siphyc/mock/dao/AndroidJpaController.java
