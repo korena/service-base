@@ -7,6 +7,7 @@ package com.siphyc.mock.service;
 
 import com.siphyc.service.ServiceInterface;
 import com.siphyc.service.android;
+import com.siphyc.service.iphone;
 import java.io.Serializable;
 import javax.enterprise.inject.Produces;
 
@@ -21,5 +22,12 @@ public class MockServiceFactory implements Serializable{
     public ServiceInterface getAndroidService(){
     return new AndroidService();
     }
+
+    @Produces
+    @iphone
+    public ServiceInterface getIphoneService(){
+    return new IphoneService();
+    }
+    
     
 }

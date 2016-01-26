@@ -9,8 +9,6 @@ import com.siphyc.service.android;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -20,11 +18,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author korena
  */
-@Default @android
+@android 
 public class AndroidService implements ServiceInterface {
 
-    @Inject
-    AndroidJpaController controller;
+    AndroidJpaController controller = new AndroidJpaController();
     
     @Inject
     public AndroidService(){

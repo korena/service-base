@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author korena
  */
-@android @Default
+@android
 public class AndroidService implements ServiceInterface {
 
     @Inject

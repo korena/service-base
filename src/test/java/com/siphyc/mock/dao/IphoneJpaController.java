@@ -6,6 +6,8 @@
 package com.siphyc.mock.dao;
 
 import com.siphyc.model.Iphone;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,23 +17,23 @@ import java.util.List;
 public class IphoneJpaController {
 
     public List<Iphone> findIphoneEntities(int limit, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
     public Iphone findIphone(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Iphone(2, "Moaz korena", "6", true, new Date(), new Date());
     }
 
     public void create(Iphone newPhone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     public void edit(Iphone existingPhone) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     public void destroy(int parseInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
     
 }

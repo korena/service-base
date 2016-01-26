@@ -5,10 +5,6 @@
  */
 package com.siphyc.test.app;
 
-import com.siphyc.endpoints.EndpointExample;
-import com.siphyc.mock.service.AndroidService;
-import com.siphyc.mock.service.MockServiceFactory;
-import com.siphyc.service.ServiceInterface;
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -25,15 +21,9 @@ public class TestApp extends ResourceConfig {
         super(MultiPartFeature.class);
         String[] pacakgesToScan = {
             "com.siphyc.endpoints",
-            "com.siphyc.service",
-            "com.siphyc.dao",
-            "com.siphyc.mock.service",
-            "com.siphyc.mock.dao"};
-//        register(new InternalsBinder());
-//        register(ServiceInterface.class);
-//        register(AndroidService.class);
-//        register(MockServiceFactory.class);
-//        register(EndpointExample.class);
+            "com.siphyc.mock.service"
+        };
+        register(new InternalsBinder());
         packages(true, pacakgesToScan);
     }
 

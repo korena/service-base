@@ -6,6 +6,7 @@
 package com.siphyc.test.endpoints;
 
 import com.siphyc.test.app.CdiEnabled;
+import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.containsString;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -18,7 +19,9 @@ public class EndpointExampleTest extends CdiEnabled {
 
     @Test
     public void AndroidResourceTest() {
-        String s = target().path("resource/android").request().get(String.class);
-        assertThat(s, containsString("unsupported request"));
+        Response response = target().path("resource/android").request().get();
+        assertEquals(response.getStatus(),501);
+        String responseText = response.readEntity(String.class);
+        assertThat(responseText, containsString("unsupported request"));
     }
 }

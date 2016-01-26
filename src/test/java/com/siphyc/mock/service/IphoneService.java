@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 @iphone
 public class IphoneService implements ServiceInterface {
 
-    @Inject
-    IphoneJpaController controller;
+
+    IphoneJpaController controller = new IphoneJpaController();
 
     public static final org.slf4j.Logger logger = LoggerFactory.getLogger(AndroidService.class);
 
