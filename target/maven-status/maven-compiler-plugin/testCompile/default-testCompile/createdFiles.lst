@@ -1,0 +1,14 @@
+com/siphyc/test/endpoints/EndpointExampleTest.class
+com/siphyc/test/app/TestApp.class
+com/siphyc/test/app/CdiEnabled.class
+com/siphyc/mock/service/IphoneService.class
+com/siphyc/mock/service/MockServiceFactory.class
+com/siphyc/mock/dao/IphoneJpaController.class
+com/siphyc/test/app/InternalsBinder.class
+com/siphyc/mock/service/AndroidService.class
+com/siphyc/test/app/InternalsBinder$IphoneImpl.class
+com/siphyc/test/service/AndroidServiceTest.class
+com/siphyc/mock/dao/AndroidJpaController.class
+com/siphyc/test/app/InternalsBinder$AndroidImpl.class
+com/siphyc/mock/service/DefaultService.class
+com/siphyc/test/app/InternalsBinder$1.class
