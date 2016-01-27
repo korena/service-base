@@ -4,6 +4,8 @@ package com.siphyc.test.app;
 import java.net.URI;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.UriBuilder;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.test.JerseyTest;
 
 
@@ -33,6 +35,11 @@ public class CdiEnabled extends JerseyTest {
         return new TestApp();
     }
 
+    @Override
+    protected void configureClient(ClientConfig config) {
+       config.register(MultiPartFeature.class);
+    }
+    
     @Override
     protected URI getBaseUri() {
         return UriBuilder.fromUri(super.getBaseUri()).path("service-base").build();

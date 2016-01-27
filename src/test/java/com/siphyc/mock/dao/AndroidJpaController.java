@@ -22,25 +22,33 @@ public class AndroidJpaController {
     }
 
     public List<Android> findAndroidEntities(int limit, int i) {
-         return new ArrayList<>();
+        List<Android> results = new ArrayList<>();
+        // dummy data ...
+        int end = (limit == 0?5:limit);
+        for (int j = 0; j < end; j++) {
+            results.add(new Android(j, "random name", "random android", true, new Date(), new Date()));
+        }
+        return results;
     }
 
     public Android findAndroid(int id) {
-        return new Android(1, "moaz korena", "Nexus 6P", true, new Date(), new Date());
+        if (id == 1) {
+            return new Android(1, "moaz korena", "Nexus 6P", true, new Date(), new Date());
+        }else{
+        return null;
+        }
     }
 
     public void create(Android newPhone) {
-        
+
     }
 
     public void edit(Android existingPhone) {
-       
+
     }
 
     public void destroy(int parseInt) {
-       
+
     }
-    
-    
-    
+
 }

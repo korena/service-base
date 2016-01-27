@@ -1,6 +1,5 @@
 package com.siphyc.endpoints;
 
-
 import com.siphyc.service.ServiceInterface;
 import com.siphyc.service.android;
 import com.siphyc.service.iphone;
@@ -28,12 +27,13 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 @Path("resource")
 public class EndpointExample {
 
-    
-    @Inject @android
+    @Inject
+    @android
     private ServiceInterface androidService;
-    @Inject @iphone
+    @Inject
+    @iphone
     private ServiceInterface iphoneService;
-    
+
     @GET
     @Path("/{param}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,13 +46,15 @@ public class EndpointExample {
         Response defaultResponse = Response.status(Response.Status.NOT_IMPLEMENTED).entity(output).build();
         switch (parameter) {
             case "android": {
-                return defaultResponse;
+                return androidService.getPhones(limit);
             }
             case "iphone": {
+                return iphoneService.getPhones(limit);
+            }
+            default: {
                 return defaultResponse;
             }
         }
-        return defaultResponse;
     }
 
     @POST
@@ -81,7 +83,7 @@ public class EndpointExample {
             }
         }
     }
-    
+
     @DELETE
     @Path("/{param}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -89,13 +91,13 @@ public class EndpointExample {
             @QueryParam("id") String id) {
         String output = "{\"ERROR\":\"unsupported request\"}";
         Response defaultResponse = Response.status(Response.Status.NOT_IMPLEMENTED).entity(output).build();
-        
+
         switch (parameter) {
             case "android": {
                 return androidService.deletePhone(id);
             }
             case "iphone": {
-               return iphoneService.deletePhone(id);
+                return iphoneService.deletePhone(id);
             }
             default: {
                 return defaultResponse;

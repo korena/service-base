@@ -36,7 +36,7 @@ public class AndroidService implements ServiceInterface {
         List<Android> results = controller.findAndroidEntities(limit, 0);
         if (results.size() > 0) {
             Gson builder = new Gson();
-            return Response.ok("[" + builder.toJson(results) + "]").build();
+            return Response.ok(builder.toJson(results)).build();
         } else {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
@@ -58,6 +58,10 @@ public class AndroidService implements ServiceInterface {
         String customer = ((List<FormDataBodyPart>) form.get("customer")).get(0).getValue();
         String model = ((List<FormDataBodyPart>) form.get("model")).get(0).getValue();
 
+        if(customer == null || model == null){
+        return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        
         Android newPhone = new Android(null, customer, model, false, new Date(), new Date());
         try {
             controller.create(newPhone);
