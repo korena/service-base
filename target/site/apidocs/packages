@@ -1,9 +1,0 @@
-com.siphyc.filters
-com.siphyc.binder
-com.siphyc.utils
-com.siphyc.endpoints
-com.siphyc.dao
-com.siphyc.dao.exceptions
-com.siphyc.model
-com.siphyc.servlet
-com.siphyc.service

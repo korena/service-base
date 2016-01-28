@@ -22,7 +22,8 @@ import org.slf4j.LoggerFactory;
  *
  * This class is intended to test the Endpoints of your web service, meaning you
  * should provide mockups for all needed code stack that does not directly
- * belong to jersey registered resources.
+ * belong to jersey registered resources. This example test class only tests
+ * android endpoint ... iphone is ignored ...
  *
  * NOTE: Injection points in the tested resources are handled by HK2, To enabled
  * CDI Injected resources (including qualifier annotated injection points),
@@ -82,8 +83,8 @@ public class EndpointExampleTest extends CdiEnabled {
     }
 
     /**
-     * A test method for POST requests (Not very thorough)... 
-     * NOTE: the default client of jersey test framework had to be configured to handle
+     * A test method for POST requests (Not very thorough)... NOTE: the default
+     * client of jersey test framework had to be configured to handle
      * FormDataMultipart, checkout the overridden
      * {@link com.siphyc.test.app.CdiEnabled# configureClient(ClientConfig) configureClient}
      * method The server side also added support for MultiPartFeature, checkout:
@@ -107,6 +108,7 @@ public class EndpointExampleTest extends CdiEnabled {
         updateAndroidFormData.field("id", "1");
         updateAndroidFormData.field("customer", "john");
         updateAndroidFormData.field("model", "Android O");
+        updateAndroidFormData.field("status", "true");
 
         Entity<FormDataMultiPart> anotherDataEntity = Entity.entity(updateAndroidFormData, MediaType.MULTIPART_FORM_DATA);
         Response updateSuccessResponse = target().path("resource/android").request().post(anotherDataEntity, Response.class);
@@ -115,6 +117,20 @@ public class EndpointExampleTest extends CdiEnabled {
          * test 200 response code (update)
          */
         assertEquals(updateSuccessResponse.getStatus(), 200);
+
+        FormDataMultiPart failedUpdateAndroidFormData = new FormDataMultiPart();
+        failedUpdateAndroidFormData.field("id", "2");  // Note that the mockup service will not recognize id=2 ...
+        failedUpdateAndroidFormData.field("customer", "john");
+        failedUpdateAndroidFormData.field("model", "Android O");
+        failedUpdateAndroidFormData.field("status", "true");
+
+        Entity<FormDataMultiPart> badDataEntity = Entity.entity(failedUpdateAndroidFormData, MediaType.MULTIPART_FORM_DATA);
+        Response updateFailedResponse = target().path("resource/android").request().post(badDataEntity, Response.class);
+
+        /**
+         * test 404 response code (update)
+         */
+        assertEquals(updateFailedResponse.getStatus(), 404);
 
         /**
          * TODO: other relevant POST tests
