@@ -1,0 +1,2 @@
+curl -vk "https://localhost:5443/api/v1.0/resource/android?limit=1"
+curl -vkF "customer=korena;model=Android;status=0" "https://localhost:5443/api/v1.0/resource/android"

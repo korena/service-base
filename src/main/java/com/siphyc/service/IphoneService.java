@@ -29,7 +29,7 @@ public class IphoneService implements ServiceInterface {
         List<Iphone> results = controller.findIphoneEntities(limit, 0);
         if (results.size() > 0) {
             Gson builder = new Gson();
-            return Response.ok("[" + builder.toJson(results) + "]").build();
+            return Response.ok(builder.toJson(results)).build();
         } else {
             return Response.status(Response.Status.NO_CONTENT).build();
         }

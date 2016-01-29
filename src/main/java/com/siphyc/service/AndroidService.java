@@ -6,7 +6,6 @@ import com.siphyc.model.Android;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -35,7 +34,7 @@ public class AndroidService implements ServiceInterface {
         List<Android> results = controller.findAndroidEntities(limit, 0);
         if (results.size() > 0) {
             Gson builder = new Gson();
-            return Response.ok("[" + builder.toJson(results) + "]").build();
+            return Response.ok(builder.toJson(results)).build();
         } else {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
