@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.siphyc.service;
 
 import java.util.Map;
@@ -14,36 +9,52 @@ import javax.ws.rs.core.Response;
  * @author korena
  */
 @Default
-public class DefaultService implements ServiceInterface{
+public class DefaultService implements ServiceInterface {
+
+    private String responseBuild(String method) {
+        return "{\"successful\": \"hello from" + method + "\"}";
+    }
 
     @Override
     public Response getPhones(int limit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default getPhones")).build();
     }
 
     @Override
     public Response getPhone(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default getPhone")).build();
     }
 
+    /**
+     * Never called ... why u hatin' ?
+     *
+     * @param map
+     * @return
+     */
     @Override
     public Response addPhone(Map<String, Object> map) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default addPhones")).build();
     }
 
+    /**
+     * Never called ... Don't hate !
+     *
+     * @param map
+     * @return
+     */
     @Override
     public Response editPhone(Map<String, Object> map) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default editPhones")).build();
     }
 
     @Override
     public Response addOrEdit(Map<String, Object> map) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default addOrEdit")).build();
     }
 
     @Override
     public Response deletePhone(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Response.ok(responseBuild("default deletePhones")).build();
     }
-    
+
 }

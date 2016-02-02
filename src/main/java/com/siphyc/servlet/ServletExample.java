@@ -26,7 +26,10 @@ public class ServletExample extends HttpServlet{
      */
     final static org.slf4j.Logger logger = LoggerFactory.getLogger(ServletExample.class);
 
-    public @Inject  ServiceInterface service;
+    /**
+     * Default implementation injection 
+     */
+    public @Inject ServiceInterface service;
 
 
     /**
@@ -44,8 +47,6 @@ public class ServletExample extends HttpServlet{
         response.setHeader("Cache-control", "no-cache, no-store");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "-1");
-
-
 
         try (PrintWriter out = response.getWriter()) {
             try {

@@ -71,25 +71,26 @@ public class JServer {
         classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
         classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
 
+        
         WebAppContext webapp = setupWebapp();
         // Create server level handler tree (assigning handlers to server ...)
         HandlerList handlers = new HandlerList();
         if (conf.getProperty("use_ssl").equalsIgnoreCase("True")) {
             handlers.addHandler(setupHttpsRedirect(webapp));
-        }else{
-        handlers.addHandler(webapp);
+        } else {
+            handlers.addHandler(webapp);
         }
+        /**
+         * the default handler deals with requests that aren't handled by any
+         * assigned handler, gives 404 mostly.
+         */
         handlers.addHandler(new DefaultHandler());
         embed_server.setHandler(handlers);
 
-        new org.eclipse.jetty.plus.jndi.Resource(webapp, "BeanManager",
-                new Reference("javax.enterprise.inject.spi.BeanManager",
-                        "org.jboss.weld.resources.ManagerObjectFactory", null));
-
         logger.debug("The configured DB is " + conf.getProperty("DB"));
         /**
-         * Depends on the active.properties file's DB property, which picks it's variables
-         * according to the active maven profile, the default is h2.
+         * Depends on the active.properties file's DB property, which picks it's
+         * variables according to the active maven profile, the default is h2.
          */
         switch (conf.getProperty("DB")) {
             case "mysql":
@@ -100,6 +101,11 @@ public class JServer {
                 initH2DemoInMemoryDatabase();
                 break;
         }
+
+        new org.eclipse.jetty.plus.jndi.Resource(webapp,
+                "BeanManager",
+                new Reference("javax.enterprise.inject.spi.BeanManager", "org.jboss.weld.resources.ManagerObjectFactory", null));
+
         try {
             embed_server.start();
             embed_server.join();
@@ -109,14 +115,14 @@ public class JServer {
     }
 
     /**
-     * This method is used to setup a secure connector, it requires a valid
-     * keystore in the config.properties file. 
-     * Things to note: The securePort
-     * parameter is the port that this server will bind to, the purpose of this
-     * port is to allow the application to be started as a normal user without
-     * the need to bind to one of the first 1024 port numbers, which are
-     * privileged and need the application to be started as root. So this
-     * parameter will be an unprivileged port number (high number).
+     * This method is used to setup a secure connector, it requires valid
+     * keystore information in the config.properties file. Things to note: The
+     * securePort parameter is the port that this server will bind to, the
+     * purpose of this port is to allow the application to be started as a
+     * normal user without the need to bind to one of the first 1024 port
+     * numbers, which are privileged and need the application to be started as
+     * root. So this parameter will be an unprivileged port number (high
+     * number).
      *
      * The actualSecurePort parameter will follow the standard port 443, so that
      * your services can be reached using the standard ssl port.
@@ -186,7 +192,7 @@ public class JServer {
     private static ContextHandlerCollection setupHttpsRedirect(WebAppContext webapp) {
         /*HANDLERS BUSINESS*/
         SecuredRedirectHandler securedRedirect = new SecuredRedirectHandler();
-        
+
         // Establish all handlers that have a context
         ContextHandlerCollection contextHandlers = new ContextHandlerCollection();
         webapp.setVirtualHosts(new String[]{"@secured"});   // handles requests that come through the sslConnector connector ...
@@ -199,15 +205,11 @@ public class JServer {
         return contextHandlers;
     }
 
-    
-    
-    
-    
     /**
-     * This method is called to setup the application, it prepares the application context,
-     * defines your web.xml and override-web.xml etc ... This is basically what
-     * makes your application behave as if it was deployed in a full fledged
-     * standard container ...
+     * This method is called to setup the application, it prepares the
+     * application context, defines your web.xml and override-web.xml etc ...
+     * This is basically what makes your application behave as if it was
+     * deployed in a full fledged standard container ...
      *
      * @return WebAppContext
      */
@@ -221,7 +223,8 @@ public class JServer {
         webapp.setWar(location.toExternalForm());
         webapp.setDescriptor("WEB-INF/web.xml");
         webapp.setOverrideDescriptor("WEB-INF/override-web.xml");
-        webapp.prependServerClass("-org.eclipse.jetty.server.,-org.eclipse.jetty.server.,org.eclipse.jetty.servlet.ServletContextHandler.Decorator");
+        webapp.prependServerClass("-org.eclipse.jetty.servlet.,-org.eclipse.jetty.server.");
+        webapp.setServer(embed_server);
         return webapp;
     }
 
@@ -254,12 +257,11 @@ public class JServer {
     }
 
     /**
-     * This is a demo in-memory H2 database resource setup method, note that the
-     * setup process is almost identical to the above MySql resource
-     * registration.
+     * This is a demo in-memory H2 database resource setup method, the setup
+     * process is almost identical to the above MySql resource registration.
      *
-     * A couple of things to note: The in-memory nature of H2 is not relevant
-     * to this method, it's defined in the config.properties under
+     * A couple of things to note: The in-memory nature of H2 is not relevant to
+     * this method, it's defined in the config.properties under
      * {@link src/main/resources/dev/} as: "jdbc:h2:mem:base;DB_CLOSE_DELAY=-1"
      * .. see that 'mem' part ? yup, that's what makes it in-memory. The
      * consequence of this is the fact that we need to initialize the database,
@@ -281,12 +283,13 @@ public class JServer {
     }
 
     /**
-     * Remove me !! Im Only here for demo purposes, don't let me confuse you,
-     * All I'm doing is populate the in-memory H2 database so that this
-     * application would work without you having to setup a real database, I am
-     * not in anyway important for the server code to work in your application,
-     * you could however use me to test your DAO layer in your test units, by
-     * moving me to your test jars and setting up properly in your test class's
+     * Remove me !! Im Only here for demo purposes, All I'm doing is populate
+     * the in-memory H2 database so that this application would work without you
+     * having to setup a real database, I am not in anyway important for the
+     * server code to work in your application, you could however use me to test
+     * your DAO layer in your test units, by moving me to your test jars and
+     * setting up properly in your test class's
+     *
      * @before/@beforeClass methods ...
      *
      * @throws SQLException
@@ -340,9 +343,8 @@ public class JServer {
 
     /**
      * This method loads the properties from active.properties file in the
-     * project resources. 
-     * Note that this method is accessible to the server,
-     * but not the application, the application defines another loadConfig method in
+     * project resources. Note that this method is accessible to the server, but
+     * not the application, the application defines another loadConfig method in
      * {@link com.siphyc.utils.Utilities#loadConfig() loadConfig}
      *
      * @return

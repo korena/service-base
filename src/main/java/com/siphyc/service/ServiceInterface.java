@@ -1,12 +1,14 @@
 package com.siphyc.service;
 
 import java.util.Map;
+import javax.enterprise.context.SessionScoped;
 import javax.ws.rs.core.Response;
 
 /**
  *
  * @author korena
  */
+@SessionScoped
 public interface ServiceInterface {
 
     public Response getPhones(int limit);

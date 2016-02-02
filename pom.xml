@@ -25,7 +25,7 @@
 
     <dependencies>
         <!--jetty sever dependency-->
-        <dependency>
+       <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${jetty.server.version}</version>
@@ -33,11 +33,6 @@
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
-            <version>${jetty.webapp.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlets</artifactId>
             <version>${jetty.webapp.version}</version>
         </dependency>
         <dependency>
@@ -59,7 +54,6 @@
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <version>1.2</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -84,8 +78,8 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <type>jar</type>
             <scope>test</scope>
+            <type>jar</type>
         </dependency>
         <!--MISC-->
         <dependency>
@@ -132,7 +126,7 @@
         <!--WELD dependencies-->
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-core</artifactId>
+            <artifactId>weld-servlet</artifactId>
             <version>${weld.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -158,6 +152,7 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.5.2</version>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -198,6 +193,11 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>el-impl</artifactId>
             <version>2.2</version>
+        </dependency>
+         <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.1</version>
         </dependency>
     </dependencies>
 
@@ -341,11 +341,11 @@
                 <build.profile.id>dev</build.profile.id>
             </properties>
         </profile>
-        <!-- The configuration of the production profile -->
+        <!-- The configuration of the development profile -->
         <profile>
-            <id>pro</id>
+            <id>dev2</id>
             <properties>
-                <build.profile.id>pro</build.profile.id>
+                <build.profile.id>dev2</build.profile.id>
             </properties>
         </profile>
     </profiles>
