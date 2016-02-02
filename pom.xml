@@ -14,12 +14,12 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty.server.version>9.3.6.v20151106</jetty.server.version>
-        <jetty.webapp.version>9.3.6.v20151106</jetty.webapp.version>
-        <jetty.util.version>9.3.6.v20151106</jetty.util.version>
-        <jetty.plus.version>9.3.6.v20151106</jetty.plus.version>
-        <jetty.annotations.version>9.3.6.v20151106</jetty.annotations.version>
-        <weld.version>2.2.15.Final</weld.version>
+        <jetty.server.version>9.2.14.v20151106</jetty.server.version>
+        <jetty.webapp.version>9.2.14.v20151106</jetty.webapp.version>
+        <jetty.util.version>9.2.14.v20151106</jetty.util.version>
+        <jetty.plus.version>9.2.14.v20151106</jetty.plus.version>
+        <jetty.annotations.version>9.2.14.v20151106</jetty.annotations.version>
+        <weld.version>2.3.2.Final</weld.version>
         <jersey.version>2.22.1</jersey.version>
     </properties>
 

@@ -223,7 +223,7 @@ public class JServer {
         webapp.setWar(location.toExternalForm());
         webapp.setDescriptor("WEB-INF/web.xml");
         webapp.setOverrideDescriptor("WEB-INF/override-web.xml");
-        webapp.prependServerClass("-org.eclipse.jetty.servlet.,-org.eclipse.jetty.server.");
+        webapp.prependServerClass("-org.eclipse.jetty.servlet.,-org.eclipse.jetty.server."); //TODO: too much exposure, check which classes are needed.
         webapp.setServer(embed_server);
         return webapp;
     }

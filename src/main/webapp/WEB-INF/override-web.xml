@@ -21,7 +21,7 @@
             <param-value>com.siphyc.binder.AppJerseyBinder</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-    <!--async response support ...-->    
+        <!--async response support ...-->    
         <!--<async-supported>true</async-supported>-->
     </servlet>
     <servlet-mapping>
