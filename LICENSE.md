@@ -24,23 +24,3 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.siphyc.test.app;
-
-import javax.ws.rs.ApplicationPath;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.server.ResourceConfig;
-
-@ApplicationPath("/*")
-public class TestApp extends ResourceConfig {
-
-    public TestApp() {
-        super(MultiPartFeature.class);
-        String[] pacakgesToScan = {
-            "com.siphyc.endpoints",
-            "com.siphyc.mock.service"
-        };
-        register(new InternalsBinder());
-        packages(true, pacakgesToScan);
-    }
-
-}

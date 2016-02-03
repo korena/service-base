@@ -1,3 +1,29 @@
+/* 
+ * The MIT License
+ *
+==================================================================================
+ * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
+ *
+ * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.siphyc.test.endpoints;
 
 import com.google.common.reflect.TypeToken;
@@ -86,23 +112,49 @@ public class EndpointExampleTest extends CdiEnabled {
      * A test method for POST requests (Not very thorough)... NOTE: the default
      * client of jersey test framework had to be configured to handle
      * FormDataMultipart, checkout the overridden
-     * {@link com.siphyc.test.app.CdiEnabled# configureClient(ClientConfig) configureClient}
-     * method The server side also added support for MultiPartFeature, checkout:
-     * {@link com.siphyc.test.app.TestApp#TestApp() TestApp} Constructor. In
-     * both cases, you're looking at register(MultiPartFeature.class)
+     * {@link com.siphyc.test.app.CdiEnabled#configureClient(ClientConfig) configureClient}
+     * method. The server side also added support for MultiPartFeature,
+     * checkout: {@link com.siphyc.test.app.TestApp#TestApp() TestApp}
+     * Constructor. In both cases, you're looking at
+     * register(MultiPartFeature.class);
      */
     @Test
     public void AndroidResourcePOSTTest() {
+        
+        FormDataMultiPart badNewAndroidFormData = new FormDataMultiPart();
+        badNewAndroidFormData.field("shouldBeCustomer", "new customer");
+        badNewAndroidFormData.field("model", "Android M");
+        Entity<FormDataMultiPart> badRequestDataEntity = Entity.entity(badNewAndroidFormData, MediaType.MULTIPART_FORM_DATA);
+
+        Response postBadResponse = target().path("resource/android").request().post(badRequestDataEntity, Response.class);
+        /**
+         * test 400 response code (post)
+         */
+        assertEquals(postBadResponse.getStatus(), 400);
+        
+        
         FormDataMultiPart newAndroidFormData = new FormDataMultiPart();
         newAndroidFormData.field("customer", "jessy");
         newAndroidFormData.field("model", "Android N");
         Entity<FormDataMultiPart> dataEntity = Entity.entity(newAndroidFormData, MediaType.MULTIPART_FORM_DATA);
-        Response postSuccessResponse = target().path("resource/android").request().post(dataEntity, Response.class);
 
+        Response postSuccessResponse = target().path("resource/android").request().post(dataEntity, Response.class);
         /**
          * test 200 response code (post)
          */
         assertEquals(postSuccessResponse.getStatus(), 200);
+
+        newAndroidFormData = new FormDataMultiPart();
+        newAndroidFormData.field("customer", "jessy");
+        newAndroidFormData.field("model", "Iphone");
+        Entity<FormDataMultiPart> exceptionWorthyDataEntity = Entity.entity(newAndroidFormData, MediaType.MULTIPART_FORM_DATA);
+
+        Response postExceptionResponse = target().path("resource/android").request().post(exceptionWorthyDataEntity, Response.class);
+
+        /**
+         * test 500 response code (post)
+         */
+        assertEquals(postExceptionResponse.getStatus(), 500);
 
         FormDataMultiPart updateAndroidFormData = new FormDataMultiPart();
         updateAndroidFormData.field("id", "1");
@@ -118,27 +170,73 @@ public class EndpointExampleTest extends CdiEnabled {
          */
         assertEquals(updateSuccessResponse.getStatus(), 200);
 
-        FormDataMultiPart failedUpdateAndroidFormData = new FormDataMultiPart();
-        failedUpdateAndroidFormData.field("id", "2");  // Note that the mockup service will not recognize id=2 ...
-        failedUpdateAndroidFormData.field("customer", "john");
-        failedUpdateAndroidFormData.field("model", "Android O");
-        failedUpdateAndroidFormData.field("status", "true");
+        FormDataMultiPart failedNonExistentUpdateAndroidFormData = new FormDataMultiPart();
+        failedNonExistentUpdateAndroidFormData.field("id", "2");  // Note that the mockup service will not recognize id=2 ...
+        failedNonExistentUpdateAndroidFormData.field("customer", "john");
+        failedNonExistentUpdateAndroidFormData.field("model", "Android O");
+        failedNonExistentUpdateAndroidFormData.field("status", "true");
 
-        Entity<FormDataMultiPart> badDataEntity = Entity.entity(failedUpdateAndroidFormData, MediaType.MULTIPART_FORM_DATA);
-        Response updateFailedResponse = target().path("resource/android").request().post(badDataEntity, Response.class);
+        
+        /**
+         * Note: NonExistent should never happen because of the check (look at the code) ...
+         */
+        Entity<FormDataMultiPart> badDataEntity = Entity.entity(failedNonExistentUpdateAndroidFormData, MediaType.MULTIPART_FORM_DATA);
+        Response nonExistentUpdateFailedResponse = target().path("resource/android").request().post(badDataEntity, Response.class);
 
         /**
          * test 404 response code (update)
          */
-        assertEquals(updateFailedResponse.getStatus(), 404);
+        assertEquals(nonExistentUpdateFailedResponse.getStatus(), 404);
+
+        
+        
+        /**
+         * Rollback should not happen .. but if it does for some datasource issue ,
+         * we can still catch it, but the response would be an ugly 500 ...
+         */
+        FormDataMultiPart failedRollbackUpdateAndroidFormData = new FormDataMultiPart();
+        failedRollbackUpdateAndroidFormData.field("id", "3"); 
+        failedRollbackUpdateAndroidFormData.field("customer", "john");
+        failedRollbackUpdateAndroidFormData.field("model", "Android O");
+        failedRollbackUpdateAndroidFormData.field("status", "true");
+
+        Entity<FormDataMultiPart> badDataEntity2 = Entity.entity(failedRollbackUpdateAndroidFormData, MediaType.MULTIPART_FORM_DATA);
+        Response rollbackupdateFailedResponse = target().path("resource/android").request().post(badDataEntity2, Response.class);
 
         /**
-         * TODO: other relevant POST tests
+         * test 404 response code (update)
          */
+        assertEquals(rollbackupdateFailedResponse.getStatus(), 404);
+
     }
 
     @Test
     public void AndroidResourceDeleteTest() {
+
+        Response successfullDelete = target().path("resource/android").queryParam("id", 1).request().delete();
+        /**
+         * test 200 response code (delete)
+         */
+        assertEquals(successfullDelete.getStatus(), 200);
+
+         Response badRequestDelete = target().path("resource/android").request().delete();
+        /**
+         * test 400 response code (delete)
+         */
+        assertEquals(badRequestDelete.getStatus(), 400);
+        
+        
+        Response failedDelete = target().path("resource/android").queryParam("id", 2).request().delete();
+        /**
+         * test 404 response code (delete)
+         */
+        assertEquals(failedDelete.getStatus(), 404);
+
+        Response failedDelete2 = target().path("resource/android").queryParam("id", 3).request().delete();
+        /**
+         * test 500 response code (delete)
+         */
+        assertEquals(failedDelete2.getStatus(), 500);
 
     }
 

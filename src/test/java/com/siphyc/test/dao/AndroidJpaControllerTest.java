@@ -24,48 +24,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.siphyc.test.service;
+package com.siphyc.test.dao;
 
-import com.siphyc.mock.dao.AndroidJpaController;
-import com.siphyc.service.AndroidService;
-import com.siphyc.service.ServiceInterface;
-import com.siphyc.service.android;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
+import com.siphyc.dao.AndroidJpaController;
+import com.siphyc.model.Android;
+import com.siphyc.test.app.TestDataSource;
+import java.sql.SQLException;
+import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author korena
  */
-@RunWith(CdiRunner.class)
-@AdditionalClasses({AndroidService.class, AndroidJpaController.class})
-public class AndroidServiceTest {
+public class AndroidJpaControllerTest {
 
-    @Inject
-    @android
-    ServiceInterface androidService;
-
-    public AndroidServiceTest() {
+    public AndroidJpaControllerTest() {
     }
+
+    public static final org.slf4j.Logger logger = LoggerFactory.getLogger(AndroidJpaControllerTest.class);
+
+    private static AndroidJpaController controller;
 
     @BeforeClass
     public static void setUpClass() {
+        
+        TestDataSource.setUpDemoH2Resource();
+        try {
+            TestDataSource.initH2DemoInMemoryDatabase();
+        } catch (SQLException ex) {
+            logger.error("Exception setting up test datasource: "+ex);
+        }
+        controller = new AndroidJpaController(); // run with runner if you want to inject ...
     }
 
     @AfterClass
     public static void tearDownClass() {
+        
+        // NO.
     }
 
     @Before
@@ -77,22 +79,21 @@ public class AndroidServiceTest {
     }
 
     @Test
-    public void androidCreateTest() {
+    public void CRUDAndroidTest() throws Exception {
 
-        FormDataMultiPart newAndroidFormData = new FormDataMultiPart();
-        newAndroidFormData.field("shouldBeCustomer", "new one ma");
-        newAndroidFormData.field("model", "Android N");
-
-        Map<String, Object> newAndroid = new HashMap<>();
-        newAndroid.putAll(newAndroidFormData.getFields());
-        Response badRequestResponse = androidService.addOrEdit(newAndroid);
-
-        /**
-         * 400 response code test (null pointer exception)
-         */
-        assertEquals(badRequestResponse.getStatus(), 400);
-
-        
-        // OK I'm not finishing this, you get the idea ...
+        Android newEntry = new Android(1, "jes", "Android M", true, new Date(), new Date());
+            // create and read
+            controller.create(newEntry);
+            Android retreived = controller.findAndroid(1);
+            assertEquals(newEntry, retreived);
+            // update and read
+            retreived.setCustomer("edited name");
+            controller.edit(retreived);
+            Android editedRetrieved = controller.findAndroid(1);
+            assertEquals(retreived, editedRetrieved);
+            // delete and read
+            controller.destroy(1);
+            Android removed = controller.findAndroid(1);
+            assertEquals(removed,null);
     }
 }

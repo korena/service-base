@@ -1,20 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * The MIT License
+ *
+==================================================================================
+ * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
+ *
+ * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package com.siphyc.mock.dao;
 
+import com.siphyc.dao.exceptions.NonexistentEntityException;
+import com.siphyc.dao.exceptions.RollbackFailureException;
 import com.siphyc.model.Android;
+import com.sun.javafx.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 
-/**
- *
- * @author korena
- */
 public class AndroidJpaController {
 
     @Inject
@@ -39,16 +59,36 @@ public class AndroidJpaController {
         }
     }
 
-    public void create(Android newPhone) {
-
+    public void create(Android newPhone) throws RollbackFailureException, Exception {
+        String model = newPhone.getModel();
+        if (Utils.contains(model, "Iphone")){
+        throw new RollbackFailureException("test roll back failure exception");
+        } else if (!Utils.contains(model, "Android")){
+        throw new Exception("test random exception");
+        }
     }
 
-    public void edit(Android existingPhone) {
-
+    public void edit(Android existingPhone) throws NonexistentEntityException, RollbackFailureException, Exception {
+        int id = existingPhone.getId();
+        if(id == 2){
+        throw new NonexistentEntityException("test non existant exception");
+        } else if (id == 3){
+        throw new RollbackFailureException("test roll back failure exception");
+        } else if (id == 4){
+        throw new Exception("test random exception");
+        }
     }
 
-    public void destroy(int parseInt) {
+    public void destroy(int id) throws NonexistentEntityException, RollbackFailureException, Exception {
 
+        if(id == 2){
+        throw new NonexistentEntityException("test non existant exception");
+        } else if (id == 3){
+        throw new RollbackFailureException("test roll back failure exception");
+        } else if (id == 4){
+        throw new Exception("test random exception");
+        }
+        
     }
 
 }
