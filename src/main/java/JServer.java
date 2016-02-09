@@ -1,10 +1,12 @@
+
+
 /* 
  * The MIT License
  *
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -126,11 +128,15 @@ public class JServer {
                 initH2DemoInMemoryDatabase();
                 break;
         }
-
-        new org.eclipse.jetty.plus.jndi.Resource(webapp,
+/**
+ * Note that the scope is 'webapp', this eliminates the need for a reference in
+ * web.xml or override-web.xml
+ */
+        
+        new Resource(webapp,
                 "BeanManager",
                 new Reference("javax.enterprise.inject.spi.BeanManager", "org.jboss.weld.resources.ManagerObjectFactory", null));
-
+        
         try {
             embed_server.start();
             embed_server.join();
@@ -143,7 +149,7 @@ public class JServer {
      * This method is used to setup a secure connector, it requires valid
      * keystore information in the config.properties file. Things to note: The
      * securePort parameter is the port that this server will bind to, the
-     * purpose of this port is to allow the application to be started as a
+     * purpose of this port is to allow the application to be started by a
      * normal user without the need to bind to one of the first 1024 port
      * numbers, which are privileged and need the application to be started as
      * root. So this parameter will be an unprivileged port number (high

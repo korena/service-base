@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,19 +29,11 @@ package com.siphyc.binder;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
-/**
- * @Comment this is done within the application, because jersey is initialized
- * at the web application's level, other containers (like glassfish) would
- * transparently do it at the server level, this is a baseless wild guess.
- */
 public class AppJerseyBinder extends ResourceConfig {
 
     public AppJerseyBinder() {
         super(MultiPartFeature.class);
-        String[] pacakgesToScan = {"com.siphyc.endpoints",
-            "com.siphyc.service",
-            "com.siphyc.dbConnect",
-            "com.siphyc.dao","com.siphyc.model"};
+        String[] pacakgesToScan = {"com.siphyc.endpoints"};
         packages(true, pacakgesToScan);
     }
 }

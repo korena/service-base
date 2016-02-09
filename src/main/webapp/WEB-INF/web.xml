@@ -5,7 +5,7 @@ The MIT License
 ==================================================================================
 Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
 
-This reference code is maintained by Moaz Korena <korena@siphyc.com>
+project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,13 @@ THE SOFTWARE.
     <welcome-file-list>
         <welcome-file>/index.html</welcome-file>
     </welcome-file-list>
-    <resource-ref>
-        <description>the dataSource thingy</description>
+    <!--    <resource-ref>
+        <description>This resource is registered at the scope of the webapp, which is why
+    we do not need a reference to it here</description>
         <res-ref-name>jdbc/conName</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
-    </resource-ref>
+    </resource-ref>-->
     <filter-mapping>
         <filter-name>GlobalFilter</filter-name>
         <url-pattern>/*</url-pattern>

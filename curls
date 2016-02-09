@@ -1,4 +1,0 @@
-#GET
-curl -vk "https://localhost:5443/api/v1.0/resource/android?limit=1"
-#POST
-curl -kv -F "customer=moaz korena" -F "model=Android M" "http://localhost:5442/api/v1.0/resource/android"

@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 
-//@WebFilter(filterName = "GlobalFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "GlobalFilter", urlPatterns = {"/*"})
 public class GlobalFilter implements Filter {
     
     private static final boolean debug = false;

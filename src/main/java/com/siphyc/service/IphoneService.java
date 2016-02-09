@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.siphyc.dao.IphoneJpaController;
 import com.siphyc.dao.exceptions.NonexistentEntityException;
 import com.siphyc.model.Iphone;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,11 @@ public class IphoneService implements ServiceInterface {
         Iphone newPhone = new Iphone(null, customer, model, false, new Date(), new Date());
         try {
             controller.create(newPhone);
-            return Response.ok().build();
+            
+            String basePath = ((URI) form.get("resource")).getPath();
+            URI resource = new URI(basePath+"?id="+controller.getPhone(customer, model).getId());
+            logger.debug("the assigned resource is :"+resource);
+            return Response.created(resource).build();
         } catch (Exception ex) {
             logger.error("failed to persist changes " + ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

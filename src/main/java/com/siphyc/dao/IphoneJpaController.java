@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -171,6 +171,18 @@ public class IphoneJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Iphone getPhone(String customer, String model) {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery("SELECT i FROM Iphone i WHERE i.customer = :customer AND i.model = :model");
+            query.setParameter("customer", customer);
+            query.setParameter("model", model);
+            return (Iphone) query.getSingleResult();
         } finally {
             em.close();
         }

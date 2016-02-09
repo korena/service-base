@@ -2,7 +2,10 @@
 <!--
 The MIT License
 
-Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All rights reserved. This program and the accompanying materials //  are made available under the terms of the MIT license.
+Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All rights reserved. This program and the accompanying materials 
+are made available under the terms of the MIT license.
+
+This reference project is maintained by Moaz Korena <korena@siphyc.com> 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -70,11 +73,11 @@ THE SOFTWARE.
             <artifactId>jetty-annotations</artifactId>
             <version>${jetty.annotations.version}</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
             <version>5.0.3</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -177,7 +180,6 @@ THE SOFTWARE.
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.5.2</version>
-            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -202,16 +204,6 @@ THE SOFTWARE.
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>1.1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
         </dependency>
         <!--EL resolver stuff (managed beans, jsf ...)-->
         <dependency>

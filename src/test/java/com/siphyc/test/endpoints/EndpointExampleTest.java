@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -140,9 +140,9 @@ public class EndpointExampleTest extends CdiEnabled {
 
         Response postSuccessResponse = target().path("resource/android").request().post(dataEntity, Response.class);
         /**
-         * test 200 response code (post)
+         * test 201 response code (post)
          */
-        assertEquals(postSuccessResponse.getStatus(), 200);
+        assertEquals(postSuccessResponse.getStatus(), 201);
 
         newAndroidFormData = new FormDataMultiPart();
         newAndroidFormData.field("customer", "jessy");

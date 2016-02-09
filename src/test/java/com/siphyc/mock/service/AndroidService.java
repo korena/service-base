@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@ import com.siphyc.mock.dao.AndroidJpaController;
 import com.siphyc.model.Android;
 import com.siphyc.service.ServiceInterface;
 import com.siphyc.service.android;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class AndroidService implements ServiceInterface {
         Android newPhone = new Android(null, customer, model, false, new Date(), new Date());
         try {
             controller.create(newPhone);
-            return Response.ok().build();
+            return Response.created(new URI("//localhost/api/v1.0/android?id=0")).build();
         } catch (Exception ex) {
             logger.error("failed to persist changes " + ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

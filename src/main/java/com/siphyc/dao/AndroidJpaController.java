@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.ws.rs.core.Response;
 
 
 public class AndroidJpaController implements Serializable {
@@ -131,6 +132,20 @@ public class AndroidJpaController implements Serializable {
         }
     }
 
+    
+    public Android getPhone(String customer, String model){
+     EntityManager em = getEntityManager();
+        try {
+            Query query = em.createQuery("SELECT a FROM Android a WHERE a.customer = :customer AND a.model = :model");
+            query.setParameter("customer", customer);
+            query.setParameter("model", model);
+            return (Android) query.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+    
+    
     public List<Android> findAndroidEntities() {
         return findAndroidEntities(true, -1, -1);
     }

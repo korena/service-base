@@ -1,10 +1,10 @@
 /* 
  * The MIT License
  *
-==================================================================================
+ ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ package com.siphyc.endpoints;
 import com.siphyc.service.ServiceInterface;
 import com.siphyc.service.android;
 import com.siphyc.service.iphone;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.enterprise.context.RequestScoped;
@@ -41,9 +42,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.slf4j.LoggerFactory;
 
 @RequestScoped
 @Path("resource")
@@ -82,7 +87,7 @@ public class EndpointExample {
     @POST
     @Path("/{param}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response post(@PathParam("param") String parameter, FormDataMultiPart form) {
+    public Response post(@Context UriInfo uriInfo, @PathParam("param") String parameter, FormDataMultiPart form) {
         String output = "{\"ERROR\":\"unsupported request\"}";
         Response defaultResponse = Response.status(Response.Status.NOT_IMPLEMENTED).entity(output).build();
         switch (parameter) {
@@ -90,14 +95,18 @@ public class EndpointExample {
                 // build a form map ...
                 Map<String, Object> formMap = new HashMap<>();
                 formMap.putAll(form.getFields());
-
+                UriBuilder ub = uriInfo.getAbsolutePathBuilder();
+                URI uri = ub.build();
+                formMap.put("resource", uri);
                 return androidService.addOrEdit(formMap);
             }
             case "iphone": {
                 // build a form map ...
                 Map<String, Object> formMap = new HashMap<>();
                 formMap.putAll(form.getFields());
-
+                UriBuilder ub = uriInfo.getAbsolutePathBuilder();
+                URI uri = ub.build();
+                formMap.put("resource", uri);
                 return iphoneService.addOrEdit(formMap);
             }
             default: {

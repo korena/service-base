@@ -5,7 +5,7 @@ The MIT License
 ==================================================================================
 Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
 
-This reference code is maintained by Moaz Korena <korena@siphyc.com>
+project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,12 +31,12 @@ THE SOFTWARE.
     <listener>
         <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
     </listener>
-    <resource-env-ref>
+<!--    <resource-env-ref>
         <resource-env-ref-name>BeanManager</resource-env-ref-name>
         <resource-env-ref-type>
             javax.enterprise.inject.spi.BeanManager
         </resource-env-ref-type>
-    </resource-env-ref>
+    </resource-env-ref>-->
     
     
     <!--JERSEY INJECTION ENABLE (CUSTOM)-->

@@ -4,7 +4,7 @@
 ==================================================================================
  * Copyright 2016 SIPHYC SYSTEMS Sdn Bhd All Rights Reserved.
  *
- * This reference code is maintained by Moaz Korena <korena@siphyc.com>
+ * project reference code contributed by Moaz Korena <korena@siphyc.com,moazkorena@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,6 @@ import com.siphyc.model.Iphone;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.inject.Alternative;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.slf4j.LoggerFactory;
