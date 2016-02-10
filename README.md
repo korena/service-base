@@ -7,7 +7,7 @@ This project tries to stay as close to the standard WAR deployable web applicati
  unpacked packages at the root directory of the WAR, for the sake of completely elimination the need
 for JavaEE containers or standalone servlet containers on the deployment/development servers,
  and limiting Server requirements to a working JVM. So the java web application could be run by
- typing "java -jar webapp.war" in a commandline. 
+ typing "java -jar webapp.war" in a command line. 
 There are a couple of issues that make dealing with this project's setup a bit unconventional, 
 and I am sure expert eyes can enhance and improve, your help is most welcome and appreciated!
 
@@ -33,7 +33,7 @@ Setup:
 3. run "java -jar target/service-base-1.0-SNAPSHOT.war"
 4. read misc/curls file to test the application web services.
 5. suggest a fix or a better setup!
-6. use the project to your needs as you see fit.
+6. adapt the project to your needs as you see fit.
 
 
 Configuration (with maven profiles):
@@ -41,7 +41,7 @@ Configuration (with maven profiles):
 The default configuration is set to 'dev' maven profile, which uses H2 memory database
 and disables ssl and http to https redirection, to change this configuration, change 
 the properties defined in src/main/resources/dev/config.properties, 
-and see what happens, you're gonna need to provide a signed certificate, a keystore ...
+and see what happens, you're gonna need to provide a signed certificate, a keystore ...<br>
 There's another maven profile called dev2, which uses a mysql database as the web applications's 
 data source, this requires setting up a mysql database (import misc/base.sql), checkout src/main/resources/dev2/config.properties
  
