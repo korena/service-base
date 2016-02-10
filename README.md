@@ -57,5 +57,5 @@ from the project's root directory, this will have your jvm (or rather the java
 process that runs your application) listen (and wait) on port 8800 for a debugger to be attached,
 I usually use NetBeans (pass the port number in the Debug>attach debugger dialog).
 
-To learn more, read <a href="">embedded jetty web services example project</a>
+To learn more, read <a href="https://info.siphyc.com/java-web-services-example-project/">embedded jetty web services example project</a>
 
