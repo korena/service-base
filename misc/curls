@@ -1,20 +1,19 @@
 #POST one android phone with the given info to the unsecure http endpoint
-curl -kv -F "customer=john doe" -F "model=Android M" \
+curl -v -F "customer=john doe" -F "model=Android M" \
  "http://localhost:5080/api/v1.0/resource/android"
 
 #UPDATE one android phone with the given info to the unsecure http endpoint
-curl -kv -F "id=1" -F "customer=john doe" -F "model=Android M" \
+curl -v -F "id=1" -F "customer=jane doe" -F "model=Android M" -F "status=True" \
 "http://localhost:5080/api/v1.0/resource/android"
 
 #DELETE one android phone with the given info in the unsecure internal http endpoint
-curl -kv -F "id=1" -F "customer=john doe" -F "model=Android M" \
-"http://localhost:5080/api/v1.0/resource/android"
+curl -v -X "DELETE" "http://localhost:5080/api/v1.0/resource/android?id=1"
 
 #POST one android phone with the given info to the secure internal https endpoint
 curl -kv -F "customer=jane doe" -F "model=Android M" \
 "https://localhost:5443/api/v1.0/resource/android"
 
-#GET one android phone, the one with id=1 from the secure https endpoint
+#GET one android phone, from the secure https endpoint
 curl -vk "https://localhost:5443/api/v1.0/resource/android?limit=1"
 
 #GET one android phone, the one with id=1 from the http endpoint, 
