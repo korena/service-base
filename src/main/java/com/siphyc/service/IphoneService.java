@@ -81,6 +81,11 @@ public class IphoneService implements ServiceInterface {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
+        
+        if(controller.getPhone(customer, model) != null){
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        
         Iphone newPhone = new Iphone(null, customer, model, false, new Date(), new Date());
         try {
             controller.create(newPhone);

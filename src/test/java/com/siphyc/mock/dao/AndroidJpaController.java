@@ -29,7 +29,7 @@ package com.siphyc.mock.dao;
 import com.siphyc.dao.exceptions.NonexistentEntityException;
 import com.siphyc.dao.exceptions.RollbackFailureException;
 import com.siphyc.model.Android;
-import com.sun.javafx.Utils;
+import com.sun.javafx.util.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

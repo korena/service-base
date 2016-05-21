@@ -37,6 +37,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -176,14 +178,16 @@ public class IphoneJpaController implements Serializable {
         }
     }
 
-    public Iphone getPhone(String customer, String model) {
+    public Iphone getPhone(String customer, String model) throws NonUniqueResultException {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createQuery("SELECT i FROM Iphone i WHERE i.customer = :customer AND i.model = :model");
             query.setParameter("customer", customer);
             query.setParameter("model", model);
             return (Iphone) query.getSingleResult();
-        } finally {
+        } catch(NoResultException | NullPointerException ex){
+            return null;
+        }finally {
             em.close();
         }
     }

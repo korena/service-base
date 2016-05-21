@@ -37,9 +37,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.ws.rs.core.Response;
 
 
 public class AndroidJpaController implements Serializable {
@@ -133,14 +134,16 @@ public class AndroidJpaController implements Serializable {
     }
 
     
-    public Android getPhone(String customer, String model){
+    public Android getPhone(String customer, String model) throws NonUniqueResultException{
      EntityManager em = getEntityManager();
         try {
             Query query = em.createQuery("SELECT a FROM Android a WHERE a.customer = :customer AND a.model = :model");
             query.setParameter("customer", customer);
             query.setParameter("model", model);
             return (Android) query.getSingleResult();
-        } finally {
+        } catch(NoResultException | NullPointerException ex){
+            return null;
+        }finally {
             em.close();
         }
     }

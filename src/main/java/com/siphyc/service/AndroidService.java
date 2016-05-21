@@ -85,6 +85,12 @@ public class AndroidService implements ServiceInterface {
         } catch (NullPointerException npe) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        
+        if(controller.getPhone(customer, model) != null){
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+        
+        
         Android newPhone = new Android(null, customer, model, false, new Date(), new Date());
         try {
             controller.create(newPhone);
