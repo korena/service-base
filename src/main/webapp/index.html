@@ -8,6 +8,47 @@
     <body>
         <div>This is an example project for using Embedded jetty + Jersey + weld
             for the development of web services, read misc/curls to understand how to 
-        play with this thing.</div>
+            play with this thing.</div>
+
+        <div>
+            <h4>Web sockets test</h4>
+            <div>
+                <span>Status:</span>
+                <span id="connection">Not Connected</span>
+            </div>
+            <div style="min-height: 30px"></div>
+            <div>
+                <label for="sendTextArea">Send data:</label><br>
+                <textarea id="sendTextArea" rows="3" placeholder="type stuff ..."></textarea>
+            </div>
+            <div>
+                <input type="button" value="Send" onclick="sendToServer()">
+            </div>
+            <div style="min-height: 30px"></div>
+            <div><span>Server Response (should echo):</span></div>
+            <div id="display"></div>
+        </div>
+        <script type="text/javascript">
+            var webSocket = new WebSocket("ws://localhost:5080/stream");
+            webSocket.onmessage = function (event) {
+                if (event.data) {
+                    document.getElementById('display').textContent = event.data;
+                }
+            };
+            webSocket.onopen = function (event) {
+                console.log("connected to server");
+                document.getElementById('connection').textContent = "connected";
+            };
+            webSocket.onclose = function () {
+                console.log("Disconnected from server");
+                document.getElementById('connection').textContent = "disconnected";
+            };
+
+            function sendToServer() {
+                webSocket.send(document.getElementById('sendTextArea').value);
+                document.getElementById('sendTextArea').value = "";
+            }
+
+        </script>
     </body>
 </html>

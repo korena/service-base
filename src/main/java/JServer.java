@@ -42,6 +42,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
+import javax.websocket.server.ServerContainer;
+import org.eclipse.jetty.plus.jndi.EnvEntry;
 import org.eclipse.jetty.plus.jndi.Resource;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
@@ -56,6 +58,7 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.SecuredRedirectHandler;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 /**
@@ -136,6 +139,19 @@ public class JServer {
         new Resource(webapp,
                 "BeanManager",
                 new Reference("javax.enterprise.inject.spi.BeanManager", "org.jboss.weld.resources.ManagerObjectFactory", null));
+        
+        
+        ServerContainer wscontainer = WebSocketServerContainerInitializer.configureContext(webapp);
+        
+        //TODO: handle possible errors .. needed(?)
+        
+        //Not sure this is needed
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            // fix for Windows, so Jetty doesn't lock files
+            webapp.getInitParams().put("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false");
+        }
+        
+        
         
         try {
             embed_server.start();

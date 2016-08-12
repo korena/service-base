@@ -46,6 +46,7 @@ THE SOFTWARE.
         <jetty.util.version>9.2.14.v20151106</jetty.util.version>
         <jetty.plus.version>9.2.14.v20151106</jetty.plus.version>
         <jetty.annotations.version>9.2.14.v20151106</jetty.annotations.version>
+        <jetty.websockets.version>9.2.14.v20151106</jetty.websockets.version>
         
         
         
@@ -91,6 +92,11 @@ THE SOFTWARE.
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-plus</artifactId>
             <version>${jetty.plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>javax-websocket-server-impl</artifactId>
+            <version>${jetty.websockets.version}</version>
         </dependency>
         <!--test framework-->
         <dependency>
@@ -338,7 +344,7 @@ THE SOFTWARE.
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.eclipse.jetty,javax.servlet,javax.annotation,org.ow2.asm,ch.qos.logback,org.slf4j,mysql,com.h2database</includeGroupIds>
+                            <includeGroupIds>org.eclipse.jetty,org.eclipse.jetty.websocket,javax.servlet,javax.websocket,javax.servlet,javax.annotation,org.ow2.asm,ch.qos.logback,org.slf4j,mysql,com.h2database</includeGroupIds>
                             <excludes>about.html,META-INF/**/*,images/**/*,.options</excludes>
                             <outputDirectory>
                                 ${project.build.directory}/${project.artifactId}-${project.version}
