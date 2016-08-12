@@ -51,7 +51,7 @@ Debugging:  (better done after compiling with the -g flag)
 The way I do it (rather primitive I know, but I can't bother learning the ways of an IDE) is by running:
 
 java -Xdebug -Xrunjdwp:transport=dt_socket,address=8800,server=y,suspend=y \  
--jar .target/service-base-1.0-SNAPSHOT.war
+-jar ./target/service-base-1.0-SNAPSHOT.war
 
 from the project's root directory, this will have your jvm (or rather the java 
 process that runs your application) listen (and wait) on port 8800 for a debugger to be attached,
