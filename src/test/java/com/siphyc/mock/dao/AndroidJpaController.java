@@ -29,7 +29,6 @@ package com.siphyc.mock.dao;
 import com.siphyc.dao.exceptions.NonexistentEntityException;
 import com.siphyc.dao.exceptions.RollbackFailureException;
 import com.siphyc.model.Android;
-import com.sun.javafx.util.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,9 +60,9 @@ public class AndroidJpaController {
 
     public void create(Android newPhone) throws RollbackFailureException, Exception {
         String model = newPhone.getModel();
-        if (Utils.contains(model, "Iphone")){
+        if ("Iphone".contains(model)){
         throw new RollbackFailureException("test roll back failure exception");
-        } else if (!Utils.contains(model, "Android")){
+        } else if ("Android".contains(model)){
         throw new Exception("test random exception");
         }
     }
